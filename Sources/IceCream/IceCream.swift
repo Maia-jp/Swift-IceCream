@@ -2,18 +2,23 @@
 //  IceCream.swift
 //
 //  Created by Joao Pedro Monteiro Maia on 28/01/23.
-//
+//  URL: https://github.com/Maia-jp/Swift-IceCream
 
 import Foundation
-
+import os.log
 
 /// Main IceCream Class
+/// TODO: Outro nome
+/// TODO: String Interpolations privacy mode X
+/// TODO: Logger must should know the calling class name
+/// TODO: OptionSet in string Formatter
+/// TODO: UnitTesting
 @available(iOS 15.0, *)
 public class IceCream:ObservableObject{
     
     //Metadata
     static var priting:Bool = true
-    //TODO: Local print & Local Level
+    var localPrinting:Bool = true
     static var logLevel:ICLogLevelConfiguration =
     ICLogLevelConfiguration(rawValue:ProcessInfo.processInfo.environment["IceCream_logLevel"] ?? "DEBUG") ?? .DEBUG
 
@@ -97,7 +102,7 @@ public class IceCream:ObservableObject{
     private func ICprint(_ input:String,_ logLevel:ICLogLevelConfiguration?, logInfo:[ICLogInfoConfiguration],
                        filename:String,line:Int,columns:Int,funcName:String)->String{
         
-        if (!Self.priting){
+        if (!Self.priting && self.localPrinting){
             return ""
         }
         
@@ -395,6 +400,3 @@ public enum ICLogInfoConfiguration{
         }
     }
 }
-
-
-
